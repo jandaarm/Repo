@@ -29,6 +29,6 @@ public class Student extends Human{
     }
 
     //static field
-    public static String University;
+    public static String University = "AITU";
 
 }
