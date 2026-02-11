@@ -11,8 +11,11 @@ public class As4Application {
 	}
 
 }
+<<<<<<< HEAD
 
 /* help:
 @Component - tells that objects of this class will be created by Spring(not User)
 
  */
+=======
+>>>>>>> origin/Assignment-4
