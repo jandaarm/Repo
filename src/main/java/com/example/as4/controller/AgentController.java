@@ -33,4 +33,9 @@ public class AgentController {
         return ResponseEntity.ok(agentService.getById(id));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<AgentDTO> update(@PathVariable Long id, @RequestBody AgentDTO dto){
+        return ResponseEntity.ok(agentService.update(id, dto));
+    }
+
 }

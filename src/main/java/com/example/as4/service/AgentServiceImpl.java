@@ -7,10 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 @Service
-public class AgentServiceImpl implements AgentService{
+public class AgentServiceImpl<id> implements AgentService{
 
     private final AgentRepository agentRepository;
 
@@ -45,6 +46,21 @@ public class AgentServiceImpl implements AgentService{
                 .orElseThrow(() -> new RuntimeException("User not found"));
         return mapToDTO(agent);
     }
+
+    @Override
+    public AgentDTO update(Long id, AgentDTO dto){
+        Agent agent = agentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        agent.setName(dto.getName());
+        agent.setRole(dto.getRole());
+        agent.setQ(dto.getQ());
+        agent.setE(dto.getE());
+        agent.setC(dto.getC());
+        agent.setX(dto.getX());
+        agentRepository.save(agent);
+        return mapToDTO(agent);
+    }
+
 
     //converts saved entity-agent into dto-object to return to user
     public AgentDTO mapToDTO(Agent agent){
