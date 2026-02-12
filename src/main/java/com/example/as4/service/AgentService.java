@@ -1,8 +1,11 @@
 package com.example.as4.service;
 
 import com.example.as4.model.dto.AgentDTO;
-import org.springframework.stereotype.Service;
+import java.util.List;
 
 public interface AgentService {
     AgentDTO create(AgentDTO dto);
+    List<AgentDTO> getAll();
+    AgentDTO getById(Long id);
+
 }

@@ -6,6 +6,9 @@ import com.example.as4.repository.AgentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class AgentServiceImpl implements AgentService{
 
@@ -26,6 +29,21 @@ public class AgentServiceImpl implements AgentService{
                 .build();
         agent = agentRepository.save(agent); //method "save" inserts created agent(using created agent) into DB and then returns saved agent
                 return mapToDTO(agent); //(using saved agent)
+    }
+
+    @Override
+    public List<AgentDTO> getAll() {
+        return agentRepository.findAll() //we receive the list of an entity-objects
+                .stream() //stream of objects inside list
+                .map(this::mapToDTO) //for each entity-object convert it into dto-object
+                .collect(Collectors.toList()); //collect all the dto-object back into the list
+    }
+
+    @Override
+    public AgentDTO getById(Long id){
+        Agent agent = agentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return mapToDTO(agent);
     }
 
     //converts saved entity-agent into dto-object to return to user
