@@ -61,6 +61,11 @@ public class AgentServiceImpl<id> implements AgentService{
         return mapToDTO(agent);
     }
 
+    public void delete(Long id){
+        Agent agent = agentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        agentRepository.delete(agent);
+    }
 
     //converts saved entity-agent into dto-object to return to user
     public AgentDTO mapToDTO(Agent agent){

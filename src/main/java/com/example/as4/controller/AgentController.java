@@ -38,4 +38,9 @@ public class AgentController {
         return ResponseEntity.ok(agentService.update(id, dto));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        agentService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

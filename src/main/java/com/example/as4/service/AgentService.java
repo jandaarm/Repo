@@ -8,4 +8,5 @@ public interface AgentService {
     List<AgentDTO> getAll();
     AgentDTO getById(Long id);
     AgentDTO update(Long id, AgentDTO dto);
+    void delete(Long id);
 }
