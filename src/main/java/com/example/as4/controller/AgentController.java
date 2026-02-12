@@ -1,7 +1,7 @@
 package com.example.as4.controller;
 
 import com.example.as4.model.dto.AgentDTO;
-import com.example.as4.service.AgentService;
+import com.example.as4.service.serviceImpl.AgentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

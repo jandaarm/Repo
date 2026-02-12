@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Agents</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial;
+            background:#0f172a;
+            color:white;
+            margin:0;
+        }
+
+        header {
+            padding:20px;
+            background:#020617;
+            font-size:26px;
+        }
+
+        .grid {
+            display:grid;
+            grid-template-columns: repeat(auto-fill,300px);
+            gap:25px;
+            padding:40px;
+        }
+
+        .card {
+            background:#1e293b;
+            padding:20px;
+            border-radius:15px;
+            box-shadow:0 0 15px rgba(0,0,0,0.4);
+        }
+
+        .name { font-size:24px; font-weight:bold; }
+        .role { color:#22c55e; margin-bottom:10px; }
+
+        button {
+            background:#ef4444;
+            border:none;
+            padding:8px 16px;
+            border-radius:8px;
+            color:white;
+            cursor:pointer;
+            margin-top:10px;
+        }
+    </style>
+</head>
+
+<body>
+<header>All Agents</header>
+
+<div style="padding:20px">
+    <a href="/add-agent"
+       style="background:#22c55e;padding:10px 20px;border-radius:8px;color:white;text-decoration:none;">
+        + Add Agent
+    </a>
+</div>
+
+
+<div class="grid">
+    <div class="card" th:each="agent : ${agents}">
+        <div class="name" th:text="${agent.name}"></div>
+        <div class="role" th:text="${agent.role}"></div>
+
+        <p><b>Q:</b> <span th:text="${agent.q}"></span></p>
+        <p><b>E:</b> <span th:text="${agent.e}"></span></p>
+        <p><b>C:</b> <span th:text="${agent.c}"></span></p>
+        <p><b>X:</b> <span th:text="${agent.x}"></span></p>
+
+        <form th:action="@{'/delete-agent/' + ${agent.id}}" method="post">
+            <button>Delete</button>
+        </form>
+
+        <a th:href="@{'/edit-agent/' + ${agent.id}}"
+           style="display:inline-block;margin-top:10px;background:#3b82f6;padding:8px 16px;border-radius:8px;color:white;text-decoration:none;">
+            Edit
+        </a>
+
+    </div>
+</div>
+
+</body>
+</html>

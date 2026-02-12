@@ -3,15 +3,15 @@ package com.example.as4.service;
 import com.example.as4.model.dto.AgentDTO;
 import com.example.as4.model.entity.Agent;
 import com.example.as4.repository.AgentRepository;
+import com.example.as4.service.serviceImpl.AgentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 @Service
-public class AgentServiceImpl<id> implements AgentService{
+public class AgentServiceImpl<id> implements AgentService {
 
     private final AgentRepository agentRepository;
 
