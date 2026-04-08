@@ -16,5 +16,5 @@ public interface MyList<T> extends Iterable<T>{
     boolean exists(Object object);
     public Object[] toArray();
     void clear();
-    int size();
+    int getSize();
 }
