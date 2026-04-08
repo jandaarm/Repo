@@ -1,10 +1,10 @@
 public class Main{
     public static void main(String[] args){
-        MyArrayList<Integer> list = new MyArrayList<>();
-        list.add(1);
-        list.add(2);
+        MyArrayList<String> list = new MyArrayList<>();
+        list.add("Apple");
+        list.add("Pen");
 
-        for (int i : list) {
+        for (String i : list) {
             System.out.println(i);
         }
     }

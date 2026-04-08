@@ -12,7 +12,7 @@ public class MyArrayList<T> implements MyList<T>{
 
 
     @Override
-    public void add(Object item) {
+    public void add(T item) {
         if (size==capacity){
             increaseBuffer();
         }
@@ -29,23 +29,34 @@ public class MyArrayList<T> implements MyList<T>{
     }
 
     @Override
-    public void set(int index, Object item) {
-
+    public void set(int index, T item) {
+        instance[index] = item;
     }
 
     @Override
-    public void add(int index, Object item) {
+    public void add(int index, T item) {
+        if (size == capacity){
+            increaseBuffer();
+        }
+        for (int i = size; i > index; i--){
 
+            instance[i] = instance[i-1];
+        }
+        set(index, item);
+        size++;
     }
 
     @Override
-    public void addFirst(Object item) {
-
+    public void addFirst(T item) {
+        add(0, item);
     }
 
     @Override
-    public void addLast(Object item) {
-
+    public void addLast(T item) {
+        if (size == capacity){
+            increaseBuffer();
+        }
+        instance[size++] = item;
     }
 
     @Override
@@ -54,28 +65,31 @@ public class MyArrayList<T> implements MyList<T>{
     }
 
     @Override
-    public Object getFirst() {
-        return null;
+    public T getFirst() {
+        return (T) instance[0];
     }
 
     @Override
-    public Object getLast() {
-        return null;
+    public T getLast() {
+        return (T) instance[size-1];
     }
 
     @Override
     public void remove(int index) {
-
+        for (int i = index; i < size - 1; i++){
+            instance[i] = instance[i+1];
+        }
+        instance[--size]=null;
     }
 
     @Override
     public void removeFirst() {
-
+        remove(0);
     }
 
     @Override
     public void removeLast() {
-
+        instance[--size] = null;
     }
 
     @Override
@@ -85,27 +99,49 @@ public class MyArrayList<T> implements MyList<T>{
 
     @Override
     public int indexOf(Object object) {
-        return 0;
+        for (int i = 0; i < size; i++){
+
+            if (instance[i] == null ? object == null : instance[i].equals(object)){
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
     public int lastIndexOf(Object object) {
-        return 0;
+        for (int i = size-1; i >= 0 ; i--){
+            if (instance[i] == null ? object == null : instance[i].equals(object)){
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
     public boolean exists(Object object) {
-        return false;
+        int t = indexOf(object);
+        if (t == -1){
+            return false;
+        }
+        return true;
     }
 
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        Object[] array = new Object[size];
+        for (int i = 0; i < size; i++){
+            array[i] = instance[i];
+        }
+        return array;
     }
 
     @Override
     public void clear() {
-
+        for (int i = 0; i < size; i++){
+            instance[i] = null;
+        }
+        size = 0;
     }
 
     @Override
@@ -114,7 +150,7 @@ public class MyArrayList<T> implements MyList<T>{
     }
 
     @Override
-    public Iterator iterator() {
+    public Iterator<T> iterator() {
         return new MyIterator();
     }
 
