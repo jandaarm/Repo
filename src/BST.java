@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 public class BST<K extends Comparable<K>,V>{
     private BSTNode<K,V> root;
     private int size = 0;
@@ -43,8 +45,6 @@ public class BST<K extends Comparable<K>,V>{
             }
         }
     }
-
-
     public V get(K key){
         BSTNode<K,V> current = root;
         while(current != null){
@@ -58,23 +58,49 @@ public class BST<K extends Comparable<K>,V>{
         return null;
     }
 
-
     public Iterable<K> iterator(){
-
     }
 
-    private class MyIterator implements Iterator<T>{
-        int cursor = 0;
+    private class MyIterator implements Iterator<K> {
+
+        @Override
+        public boolean hasNext() {
+            return false;
+        }
+
+        @Override
+        public K next() {
+            return null;
+        }
     }
 
     public void inOrder(){
         // need to: find start, remember trace back, implement traversal
+        MyStack<BSTNode<K,V>> trace = new MyStack<>();
         BSTNode<K,V> current;
-        BSTNode<K,V>[] trace;
         current = root;
+        if (current == null){
+            return;
+        }
 
         while(current.left != null){
+            trace.push(current);
             current = current.left;
+        }
+        trace.push(current);
+
+        while (!trace.empty()){
+            current = trace.pop();
+            System.out.println(current.key);
+            if (current.right != null){
+                current=current.right;
+                while(current.left != null){
+                    //restack next trace above old trace
+                    trace.push(current);
+                    current = current.left;
+                }
+                trace.push(current);
+            }
         }
     }
 }
