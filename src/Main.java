@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Main{
     public static void main(String[] args){
         BST<Integer, String> tree = new BST<>();
@@ -14,6 +16,25 @@ public class Main{
 
             System.out.println("key is " + element.getKey() + " and value is " + element.getValue());
 
+        }
+
+        int M = 10;
+        MyHashTable<MyHashTable.MyTestingClass, Integer> table = new MyHashTable<>(M);
+
+        Random rand = new Random();
+
+        for (int i = 0; i < 10000; i++) {
+            int a = rand.nextInt(100000);
+            int b = rand.nextInt(100000);
+
+            MyHashTable.MyTestingClass key =
+                    new MyHashTable.MyTestingClass(a, b);
+
+            table.put(key, i);
+        }
+
+        for (int i = 0; i < M; i++) {
+            System.out.println("Bucket " + i + ": " + table.getBucketSize(i));
         }
     }
 }
