@@ -1,31 +1,49 @@
 import java.util.*;
 
-public class Search<Vertex> {
-    protected Set<Vertex> marked;
-    protected Map<Vertex, Vertex> edgeTo;
-    protected final Vertex source;
+public class Search<T> {
 
-    public Search(Vertex source) {
-        this.source = source;
+    protected Set<Vertex<T>> marked;
+    protected Map<Vertex<T>, Vertex<T>> edgeTo;
+
+    protected final Vertex<T> source;
+
+    protected final UnweightedGraph<T> graph;
+
+    public Search(UnweightedGraph<T> graph, T source) {
+
+        this.graph = graph;
+
+        this.source = graph.getVertex(source);
+
         marked = new HashSet<>();
         edgeTo = new HashMap<>();
     }
 
-    public boolean hasPathTo(Vertex v) {
+    public boolean hasPathTo(T data) {
+
+        Vertex<T> v = graph.getVertex(data);
+
         return marked.contains(v);
     }
 
-    public Iterable<Vertex> pathTo(Vertex v) {
-        if (!hasPathTo(v)) return null;
+    public Iterable<T> pathTo(T data) {
 
-        LinkedList<Vertex> ls = new LinkedList<>();
-        for (Vertex i = v; i != source; i = edgeTo.get(i)) {
-            ls.push(i); // inverted adding
+        Vertex<T> v = graph.getVertex(data);
+
+        if (!hasPathTo(data))
+            return null;
+
+        LinkedList<T> path = new LinkedList<>();
+
+        for (Vertex<T> i = v;
+             !i.equals(source);
+             i = edgeTo.get(i)) {
+
+            path.push(i.getData());
         }
 
-        ls.push(source);
+        path.push(source.getData());
 
-        return ls;
+        return path;
     }
 }
-
