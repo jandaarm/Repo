@@ -1,8 +1,8 @@
 import java.util.*;
 
-public class UnweightedGraph<Vertex> {
+public class UnweightedGraph<T> {
     private final boolean undirected;
-    private final Map<Vertex, List<Vertex>> map = new HashMap<>();
+    private final Map<T, Vertex<T>> map = new HashMap<>();
 
     public UnweightedGraph() {
         this(true);
@@ -12,14 +12,14 @@ public class UnweightedGraph<Vertex> {
         this.undirected = undirected;
     }
 
-    public void addVertex(Vertex v) {
+    public void addVertex(T v) {
         if (hasVertex(v))
             return;
 
-        map.put(v, new LinkedList<>());
+        map.put(v, new Vertex<>(v));
     }
 
-    public void addEdge(Vertex source, Vertex dest) {
+    public void addEdge(T source, T dest) {
         if (!hasVertex(source))
             addVertex(source);
 
@@ -30,10 +30,10 @@ public class UnweightedGraph<Vertex> {
                 || source.equals(dest))
             return; // reject parallels & self-loops
 
-        map.get(source).add(dest);
+        map.get(source).addAdjacentVertex(map.get(dest), 1);
 
         if (undirected)
-            map.get(dest).add(source);
+            map.get(dest).addAdjacentVertex(map.get(source), 1);
     }
 
     public int getVerticesCount() {
@@ -42,8 +42,8 @@ public class UnweightedGraph<Vertex> {
 
     public int getEdgesCount() {
         int count = 0;
-        for (Vertex v : map.keySet()) {
-            count += map.get(v).size();
+        for (T v : map.keySet()) {
+            count += map.get(v).getAdjacentVertices().size();
         }
 
         if (undirected)
@@ -53,19 +53,19 @@ public class UnweightedGraph<Vertex> {
     }
 
 
-    public boolean hasVertex(Vertex v) {
+    public boolean hasVertex(T v) {
         return map.containsKey(v);
     }
 
-    public boolean hasEdge(Vertex source, Vertex dest) {
+    public boolean hasEdge(T source, T dest) {
         if (!hasVertex(source)) return false;
-        return map.get(source).contains(dest);
+        return map.get(source).getAdjacentVertices().containsKey(map.get(dest));
     }
 
-    public List<Vertex> adjacencyList(Vertex v) {
+    public Map<Vertex<T>, Double> adjacencyList(T v) {
         if (!hasVertex(v)) return null;
 
-        return map.get(v);
+        return map.get(v).getAdjacentVertices();
     }
 }
 
