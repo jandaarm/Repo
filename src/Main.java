@@ -13,11 +13,11 @@ public class Main {
 
         UnweightedGraph<String> graph = new UnweightedGraph<>(true);
         fillWithoutWeights(graph);
-/*
+
         System.out.println("DFS:");
         Search<String> dfs = new DepthFirstSearch<>(graph, "Almaty");
         outputPath(dfs, "Kyzylorda");
-*/
+
         System.out.println("--------------------------------");
 
         System.out.println("BFS:");
