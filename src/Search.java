@@ -7,11 +7,22 @@ public class Search<T> {
 
     protected final Vertex<T> source;
 
-    protected final UnweightedGraph<T> graph;
+    protected UnweightedGraph<T> unweightedGraph;
+    protected WeightedGraph<T> weightedGraph;
 
     public Search(UnweightedGraph<T> graph, T source) {
 
-        this.graph = graph;
+        this.unweightedGraph = graph;
+
+        this.source = graph.getVertex(source);
+
+        marked = new HashSet<>();
+        edgeTo = new HashMap<>();
+    }
+
+    public Search(WeightedGraph<T> graph, T source) {
+
+        this.weightedGraph = graph;
 
         this.source = graph.getVertex(source);
 
@@ -21,14 +32,24 @@ public class Search<T> {
 
     public boolean hasPathTo(T data) {
 
-        Vertex<T> v = graph.getVertex(data);
+        Vertex<T> v;
+
+        if (unweightedGraph != null)
+            v = unweightedGraph.getVertex(data);
+        else
+            v = weightedGraph.getVertex(data);
 
         return marked.contains(v);
     }
 
     public Iterable<T> pathTo(T data) {
 
-        Vertex<T> v = graph.getVertex(data);
+        Vertex<T> v;
+
+        if (unweightedGraph != null)
+            v = unweightedGraph.getVertex(data);
+        else
+            v = weightedGraph.getVertex(data);
 
         if (!hasPathTo(data))
             return null;

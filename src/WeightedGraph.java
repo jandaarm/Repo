@@ -67,5 +67,9 @@ public class WeightedGraph<T> {
 
         return map.get(v).getAdjacentVertices();
     }
+
+    Vertex<T> getVertex(T data) {
+        return map.get(data);
+    }
 }
 

@@ -4,11 +4,11 @@ public class Main {
         WeightedGraph<String> weightedGraph = new WeightedGraph<>(true);
         fillWithWeights(weightedGraph);
 
-        /*System.out.println("Dijkstra:");
+        System.out.println("Dijkstra:");
         Search<String> djk = new DijkstraSearch<>(weightedGraph, "Almaty");
         outputPath(djk, "Kyzylorda");
 
-*/
+
         System.out.println("--------------------------------");
 
         UnweightedGraph<String> graph = new UnweightedGraph<>(true);
