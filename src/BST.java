@@ -76,7 +76,7 @@ public class BST<K extends Comparable<K>,V> implements Iterable<BST.Entry<K,V>>{
                 if (current.right != null && current.left != null){
                     BSTNode<K,V> p = current;
                     BSTNode<K,V> successor = current.right;
-                    while(successor.left != null){
+                    while(successor.left != null){''
                         p = successor;
                         successor = successor.left;
                     }
